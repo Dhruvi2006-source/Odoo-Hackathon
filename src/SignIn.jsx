@@ -1,102 +1,3 @@
-// // src/components/SignIn.jsx
-// import React, { useState } from "react";
-// import { Link } from "react-router-dom";
-// import "./SignIn.css";
-
-// const SignIn = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [message, setMessage] = useState("");
-
-//   const handleSignIn = (e) => {
-//     e.preventDefault();
-//     setMessage("Signing in...");
-
-//     setTimeout(() => {
-//       setMessage("Logged in successfully (mock)");
-//     }, 1000);
-//   };
-
-//   const handleForgotPassword = () => {
-//     if (!email) {
-//       setMessage("Enter your email to receive a reset link.");
-//       return;
-//     }
-
-//     // Simulate reset logic
-//     setTimeout(() => {
-//       setMessage("Password reset link sent to your email.");
-//     }, 1000);
-//   };
-
-//   return (
-//     <div className="auth-container">
-//       <form className="auth-form" onSubmit={handleSignIn}>
-//         <h2>Welcome Back 👋</h2>
-//         <p>Please sign in to your account</p>
-
-//         <input
-//           type="email"
-//           placeholder="Email Address"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-
-//         <div className="auth-links">
-//           <button
-//             type="button"
-//             className="link-btn"
-//             onClick={handleForgotPassword}
-//           >
-//             Forgot Password?
-//           </button>
-//         </div>
-
-//         <button type="submit" className="primary-btn">
-//           Sign In
-//         </button>
-
-//         {message && <p className="auth-message">{message}</p>}
-
-//         <p className="auth-bottom">
-//           Don't have an account?{" "}
-//           <Link to="/signup" className="link-text">
-//             Sign Up
-//           </Link>
-//         </p>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default SignIn;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // src/components/SignIn.jsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -158,6 +59,7 @@ const SignIn = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          autoComplete="off"
         />
 
         <input
@@ -166,6 +68,7 @@ const SignIn = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          autoComplete="new-password"
         />
 
         {/* Role Dropdown */}
