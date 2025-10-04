@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Manager.css";
 import CurrencyConverter from "./CurrencyConverter";
+import { Link } from "react-router-dom";
+
 const ManagerPage = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
 
@@ -64,7 +66,9 @@ const ManagerPage = () => {
         <header className="topbar">
           <h1>Manager Dashboard</h1>
           <button className="btn logout" onClick={() => alert("Logged out!")}>
-            Logout
+            <Link to="/" className="link-text">
+              Logout
+            </Link>
           </button>
         </header>
 

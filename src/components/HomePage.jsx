@@ -26,7 +26,9 @@ const HomePage = () => {
               Log in
             </Link>
             </button>
-          <button className="btn signup">Sign Up</button>
+          <button className="btn signup"><Link to="/signup" className="link-text">
+              Sign Up
+            </Link></button>
         </div>
       </header>
 

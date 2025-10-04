@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./EmployeePage.css";
-import CurrencyConverter from "./CurrencyConverter"; // adjust path if needed
-
+import CurrencyConverter from "./CurrencyConverter";
+import { Link } from "react-router-dom";
 const EmployeePage = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
 
@@ -71,6 +71,12 @@ const EmployeePage = () => {
     alert("Expense submitted with receipt!");
   };
 
+  // Calculate stats for dashboard
+  const totalExpenses = expenses.length;
+  const approvedExpenses = expenses.filter((e) => e.status === "Approved").length;
+  const pendingExpenses = expenses.filter((e) => e.status === "Pending").length;
+  const rejectedExpenses = expenses.filter((e) => e.status === "Rejected").length;
+
   return (
     <div className="employee-container">
       <aside className="sidebar">
@@ -101,123 +107,158 @@ const EmployeePage = () => {
         <header className="topbar">
           <h1>Employee Dashboard</h1>
           <button className="btn logout" onClick={() => alert("Logged out!")}>
-            Logout
+            <Link to="/" className="link-text">
+              Logout
+            </Link>
           </button>
         </header>
 
         <section className="content">
           {activeTab === "dashboard" && (
-            <div>
+            <div className="dashboard-content">
               <h2>📊 Overview</h2>
-              <p>Total Submitted: {expenses.length}</p>
-              <p>
-                Approved:{" "}
-                {expenses.filter((e) => e.status === "Approved").length}
-              </p>
-              <p>
-                Pending: {expenses.filter((e) => e.status === "Pending").length}
-              </p>
-              <p>
-                Rejected:{" "}
-                {expenses.filter((e) => e.status === "Rejected").length}
-              </p>
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <h3>{totalExpenses}</h3>
+                  <p>Total Submitted</p>
+                </div>
+                <div className="stat-card">
+                  <h3>{approvedExpenses}</h3>
+                  <p>Approved</p>
+                </div>
+                <div className="stat-card">
+                  <h3>{pendingExpenses}</h3>
+                  <p>Pending</p>
+                </div>
+                <div className="stat-card">
+                  <h3>{rejectedExpenses}</h3>
+                  <p>Rejected</p>
+                </div>
+              </div>
+              
               {/* Currency Converter */}
-              <div style={{ marginTop: "30px" }}>
+              <div className="converter-section">
                 <CurrencyConverter />
               </div>
             </div>
           )}
 
           {activeTab === "submit" && (
-            <div>
+            <div className="submit-content">
               <h2>📝 Submit Expense</h2>
               <form onSubmit={handleSubmit} className="expense-form">
-                <input
-                  type="text"
-                  name="category"
-                  placeholder="Category"
-                  value={form.category}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="number"
-                  name="amount"
-                  placeholder="Amount"
-                  value={form.amount}
-                  onChange={handleChange}
-                  required
-                />
-                <textarea
-                  name="description"
-                  placeholder="Description"
-                  value={form.description}
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="date"
-                  name="date"
-                  value={form.date}
-                  onChange={handleChange}
-                  required
-                />
+                <div className="form-group">
+                  <input
+                    type="text"
+                    name="category"
+                    placeholder="Category (e.g., Travel, Meals, Supplies)"
+                    value={form.category}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="number"
+                    name="amount"
+                    placeholder="Amount"
+                    value={form.amount}
+                    onChange={handleChange}
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <textarea
+                    name="description"
+                    placeholder="Description of the expense"
+                    value={form.description}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="date"
+                    name="date"
+                    value={form.date}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
                 {/* Receipt Upload */}
-                <label>Upload Receipt</label>
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  accept="image/*,.pdf"
-                />
+                <div className="form-group">
+                  <label className="file-label">Upload Receipt (Image or PDF)</label>
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*,.pdf"
+                    className="file-input"
+                  />
+                </div>
 
                 <button type="submit" className="btn submit">
-                  Submit
+                  Submit Expense
                 </button>
               </form>
             </div>
           )}
 
           {activeTab === "history" && (
-            <div>
+            <div className="history-content">
               <h2>📜 Expense History</h2>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Receipt</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {expenses.map((e) => (
-                    <tr key={e.id}>
-                      <td>{e.id}</td>
-                      <td>{e.category}</td>
-                      <td>${e.amount}</td>
-                      <td>{e.description}</td>
-                      <td>{e.date}</td>
-                      <td>{e.status}</td>
-                      <td>
-                        {e.receipt && e.receipt !== "No file" ? (
-                          <a
-                            href="#"
-                            onClick={() => alert(`Preview: ${e.receipt}`)}
-                          >
-                            📎 {e.receipt}
-                          </a>
-                        ) : (
-                          "—"
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {expenses.length === 0 ? (
+                <div className="no-expenses">
+                  <p>No expenses submitted yet.</p>
+                </div>
+              ) : (
+                <div className="table-container">
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Receipt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {expenses.map((e) => (
+                        <tr key={e.id}>
+                          <td>{e.id}</td>
+                          <td>{e.category}</td>
+                          <td>${e.amount}</td>
+                          <td className="description-cell">{e.description}</td>
+                          <td>{e.date}</td>
+                          <td>
+                            <span className={`status status-${e.status.toLowerCase()}`}>
+                              {e.status}
+                            </span>
+                          </td>
+                          <td>
+                            {e.receipt && e.receipt !== "No file" ? (
+                              <a
+                                href="#"
+                                onClick={() => alert(`Preview: ${e.receipt}`)}
+                                className="receipt-link"
+                              >
+                                📎 {e.receipt}
+                              </a>
+                            ) : (
+                              <span className="no-receipt">—</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           )}
         </section>
