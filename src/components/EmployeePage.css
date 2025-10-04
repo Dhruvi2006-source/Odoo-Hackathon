@@ -1,0 +1,204 @@
+.employee-container {
+    display: flex;
+    height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 230px;
+    background: #1e272e;
+    color: #fff;
+    padding: 1rem;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 0.9rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sidebar li:hover,
+.sidebar li.active {
+    background: #ff9800;
+    color: #fff;
+}
+
+/* Main */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f1f2f6;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.top-search {
+    max-width: 300px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn.logout {
+    background: #e74c3c;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.stat-card {
+    padding: 1.2rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+}
+
+.stat-card.submitted {
+    background: #2980b9;
+}
+
+.stat-card.approved {
+    background: #27ae60;
+}
+
+.stat-card.pending {
+    background: #f39c12;
+}
+
+.stat-card.rejected {
+    background: #c0392b;
+}
+
+/* Recent Expenses */
+.recent-expenses {
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.recent-card {
+    padding: 0.8rem;
+    border-left: 5px solid #2980b9;
+    background: #f9f9f9;
+    border-radius: 6px;
+}
+
+/* Form */
+.expense-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    margin-bottom: 1rem;
+}
+
+.expense-form input,
+.expense-form textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn.submit {
+    margin-top: 1rem;
+    background: #27ae60;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    margin-top: 1.5rem;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    background: #f0f0f0;
+}
+
+.status {
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+.status.approved {
+    background: #27ae60;
+}
+
+.status.pending {
+    background: #f39c12;
+}
+
+.status.rejected {
+    background: #c0392b;
+}
